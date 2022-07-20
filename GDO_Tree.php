@@ -5,7 +5,7 @@ use GDO\Core\GDO;
 use GDO\Core\GDT_Object;
 use GDO\Core\GDT_Int;
 use GDO\Core\GDT_String;
-use GDO\DB\GDT_Index;
+use GDO\Core\GDT_Index;
 
 /**
  * Abstract Tree class stolen from sitepoint.
@@ -50,7 +50,7 @@ abstract class GDO_Tree extends GDO
 	public function getIDColumn() { return $this->gdoPrimaryKeyColumn()->identifier(); }
 	public function getParentColumn() { return $this->gdoTreePrefix().'_parent'; }
 	public function getParentID() { return $this->gdoVar($this->getParentColumn()); }
-	public function getParent() { return $this->getValue($this->getParentColumn()); }
+	public function getParent() { return $this->gdoValue($this->getParentColumn()); }
 	
 	public function getDepthColumn() { return $this->gdoTreePrefix().'_depth'; }
 	public function getDepth() { return $this->gdoVar($this->getDepthColumn()); }

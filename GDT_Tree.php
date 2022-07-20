@@ -1,7 +1,8 @@
 <?php
 namespace GDO\Category;
-use GDO\DB\WithObject;
-use GDO\Form\GDT_Select;
+
+use GDO\Core\WithObject;
+use GDO\Core\GDT_Select;
 use GDO\Core\GDT_Template;
 
 /**
