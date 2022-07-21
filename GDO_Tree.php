@@ -181,7 +181,7 @@ abstract class GDO_Tree extends GDO
 	###############
 	### Rebuild ###
 	###############
-	public function gdoAfterCreate()
+	public function gdoAfterCreate(GDO $gdo) : void
 	{
 		$this->rebuildFullTree();
 	}
