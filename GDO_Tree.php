@@ -32,7 +32,7 @@ abstract class GDO_Tree extends GDO
 	###########
 	### GDO ###
 	###########
-	public function gdoAbstract() { return $this->gdoClassName() === 'GDO\Category\GDO_Tree'; }
+	public function gdoAbstract() : bool { return $this->gdoClassName() === 'GDO\Category\GDO_Tree'; }
 	public function gdoColumns() : array
 	{
 		$pre = $this->gdoTreePrefix();
