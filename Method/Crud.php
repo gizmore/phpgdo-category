@@ -41,10 +41,10 @@ final class Crud extends MethodCrud
 	public function createForm(GDT_Form $form) : void
 	{
 		$table = $this->gdoTable();
-		$form->addFields(array(
+		$form->addFields(
 			$table->gdoColumn('cat_name'),
 			GDT_Category::make('cat_parent')->label('parent')->emptyLabel('select_parent_category'),
-		));
+		);
 		$this->createFormButtons($form);
 	}
 	
