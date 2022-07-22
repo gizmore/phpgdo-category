@@ -37,11 +37,11 @@ abstract class GDO_Tree extends GDO
 	{
 		$pre = $this->gdoTreePrefix();
 		return array(
-		    GDT_Object::make($pre.'_parent')->noAutojoin()->table(GDO::tableFor($this->gdoClassName()))->searchable(false),
-		    GDT_String::make($pre.'_path')->binary()->max(128)->searchable(false),
-			GDT_Int::make($pre.'_depth')->unsigned()->bytes(1)->searchable(false),
-		    GDT_Int::make($pre.'_left')->unsigned()->searchable(false),
-		    GDT_Int::make($pre.'_right')->unsigned()->searchable(false),
+		    GDT_Object::make($pre.'_parent')->table(GDO::tableFor($this->gdoClassName())),
+		    GDT_String::make($pre.'_path')->binary()->max(128),
+			GDT_Int::make($pre.'_depth')->unsigned()->bytes(1),
+		    GDT_Int::make($pre.'_left')->unsigned(),
+		    GDT_Int::make($pre.'_right')->unsigned(),
 		    GDT_Index::make($pre.'_left_index')->btree()->indexColumns($pre.'_left'),
 		    GDT_Index::make($pre.'_parent_index')->btree()->indexColumns($pre.'_parent'),
 		);
@@ -110,7 +110,7 @@ abstract class GDO_Tree extends GDO
 	/**
 	 * @return self[]
 	 */
-	public function &all($order=null, $json=false)
+	public function &all(string $order=null, bool $json=false) : array
 	{
 		$order = $order ? $order : $this->gdoTableIdentifier().'.'.$this->getLeftColumn();
 		return parent::all($order, $json);

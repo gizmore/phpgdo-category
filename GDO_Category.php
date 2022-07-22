@@ -15,7 +15,7 @@ final class GDO_Category extends GDO_Tree
 	###########
 	### GDO ###
 	###########
-	public function memCached() { return false; }
+	public function memCached() : bool { return false; }
 	public function gdoTreePrefix() { return 'cat'; }
 	public function gdoColumns() : array
 	{
@@ -28,7 +28,7 @@ final class GDO_Category extends GDO_Tree
 	##############
 	### Getter ###
 	##############
-	public function getName() { return $this->gdoVar('cat_name'); }
+	public function getName() : ?string { return $this->gdoVar('cat_name'); }
 	public function displayName() { return html($this->getName()); }
 	public function href_btn_edit() { return href('Category', 'Crud', '&id='.$this->getID()); }
 
