@@ -28,7 +28,7 @@ final class Crud extends MethodCrud
 	    Module_Category::instance()->renderAdminTabs();
 	}
 	
-	public function gdoTable()
+	public function gdoTable() : GDO
 	{
 		return GDO_Category::table();
 	}

@@ -21,7 +21,7 @@ final class GDO_Category extends GDO_Tree
 	{
 		return array_merge([
 			GDT_AutoInc::make('cat_id'),
-			GDT_Name::make('cat_name'),
+			GDT_Name::make('cat_name')->notNull(),
 		], parent::gdoColumns());
 	}
 

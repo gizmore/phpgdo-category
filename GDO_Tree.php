@@ -160,7 +160,7 @@ abstract class GDO_Tree extends GDO
 			'selected' => false,
 			'colapsed' => false,
 			'name' => $this->getName(),
-			'label' => $this->displayName(),
+			'label' => $this->renderName(),
 			'depth' => (int)$this->getDepth(),
 			'parent' => (int)$this->getParentID(),
 			'children' => $this->getChildrenJSON(),
