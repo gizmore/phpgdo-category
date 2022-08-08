@@ -33,7 +33,7 @@ final class Crud extends MethodCrud
 		return GDO_Category::table();
 	}
 
-	public function hrefList()
+	public function hrefList() : string
 	{
 		return href('Category', 'Overview');
 	}
