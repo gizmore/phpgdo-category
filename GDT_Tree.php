@@ -16,7 +16,7 @@ class GDT_Tree extends GDT_Select
 {
 	use WithObject;
 
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
 		return GDT_Template::php('Category', 'cell/tree.php', ['field' => $this]);
 	}

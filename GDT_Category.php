@@ -32,12 +32,12 @@ final class GDT_Category extends GDT_ObjectSelect
 	 	$this->completionHref(href('Category', 'Completion'));
 	}
 	
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
 		return GDT_Template::php('Category', 'cell/category.php', ['field'=>$this]);
 	}
 	
-// 	public function renderChoice($choice)
+// 	public function renderOption($choice)
 // 	{
 // 		return $choice->getName();
 // 	}

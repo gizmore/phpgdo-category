@@ -44,14 +44,14 @@ final class GDO_Category extends GDO_Tree
 	##############
 	### Render ###
 	##############
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
-		return GDT_Category::make('cat')->gdo($this)->renderCell();
+		return GDT_Category::make('cat')->gdo($this)->renderHTML();
 	}
 
-	public function renderChoice() : string
+	public function renderOption() : string
 	{
-		return GDT_Category::make('cat')->gdo($this)->renderChoice();
+		return GDT_Category::make('cat')->gdo($this)->renderOption();
 	}
 
 }
