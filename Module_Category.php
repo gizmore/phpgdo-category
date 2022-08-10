@@ -10,7 +10,7 @@ final class Module_Category extends GDO_Module
 	
 	public function onLoadLanguage() : void { $this->loadLanguage('lang/category'); }
 	public function getClasses() : array { return ['GDO\Category\GDO_Category']; }
-	public function href_administrate_module() : ?string { return href('Category', 'Overview'); }
+	public function hrefAdministration() : ?string { return href('Category', 'Overview'); }
 	
 	##############
 	### Render ###
