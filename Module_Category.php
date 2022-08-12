@@ -17,7 +17,7 @@ final class Module_Category extends GDO_Module
 	##############
 	public function renderAdminTabs()
 	{
-	    GDT_Page::$INSTANCE->topBar()->addField(
+	    GDT_Page::instance()->topResponse()->addField(
 	        $this->templatePHP('admin_tabs.php'));
 	}
 	

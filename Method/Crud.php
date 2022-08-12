@@ -12,9 +12,10 @@ use GDO\Category\Module_Category;
 
 /**
  * Add and edit categories.
+ * 
  * @author gizmore
- * @since 6.02
- * @version 6.07
+ * @version 7.0.1
+ * @since 6.2.0
  */
 final class Crud extends MethodCrud
 {
