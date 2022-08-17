@@ -8,19 +8,23 @@ $gdo instanceof GDO_Tree;
 # Build  Tree JSON
 $roots = $gdo->fullRoots();
 
-function __showTree(GDO_Category $leaf, $level=0)
+if (!function_exists('__showTree'))
 {
-	for ($i = 0; $i < $level; $i++)
+	function __showTree(GDO_Category $leaf, $level=0)
 	{
-		echo GDT_Icon::iconS('plus');
-	}
-	echo $leaf->displayName();
-	echo "<br/>";
-	foreach ($leaf->children as $child)
-	{
-		__showTree($child, $level+1);
+		for ($i = 0; $i < $level; $i++)
+		{
+			echo GDT_Icon::iconS('plus');
+		}
+		echo $leaf->displayName();
+		echo "<br/>";
+		foreach ($leaf->children as $child)
+		{
+			__showTree($child, $level+1);
+		}
 	}
 }
+
 
 foreach ($roots as $root)
 {
