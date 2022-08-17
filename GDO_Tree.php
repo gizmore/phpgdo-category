@@ -36,15 +36,15 @@ abstract class GDO_Tree extends GDO
 	public function gdoColumns() : array
 	{
 		$pre = $this->gdoTreePrefix();
-		return array(
+		return [
 		    GDT_Object::make($pre.'_parent')->table(GDO::tableFor($this->gdoClassName())),
-		    GDT_String::make($pre.'_path')->binary()->max(128),
+		    GDT_String::make($pre.'_path')->ascii()->caseS()->max(128),
 			GDT_Int::make($pre.'_depth')->unsigned()->bytes(1),
 		    GDT_Int::make($pre.'_left')->unsigned(),
 		    GDT_Int::make($pre.'_right')->unsigned(),
 		    GDT_Index::make($pre.'_left_index')->btree()->indexColumns($pre.'_left'),
 		    GDT_Index::make($pre.'_parent_index')->btree()->indexColumns($pre.'_parent'),
-		);
+		];
 	}
 	
 	public function getIDColumn() { return $this->gdoPrimaryKeyColumn()->identifier(); }
