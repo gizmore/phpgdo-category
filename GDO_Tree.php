@@ -13,8 +13,8 @@ use GDO\Core\GDT_Index;
  * 
  * @see http://articles.sitepoint.com/article/hierarchical-data-database/3
  * @author gizmore
- * @version 6.10
- * @since 6.02
+ * @version 7.0.1
+ * @since 6.2.0
  */
 abstract class GDO_Tree extends GDO
 {
@@ -155,7 +155,7 @@ abstract class GDO_Tree extends GDO
 	
 	public function toJSON()
 	{
-		return array(
+		return [
 			'id' => (int)$this->getID(),
 			'selected' => false,
 			'colapsed' => false,
@@ -164,7 +164,7 @@ abstract class GDO_Tree extends GDO
 			'depth' => (int)$this->getDepth(),
 			'parent' => (int)$this->getParentID(),
 			'children' => $this->getChildrenJSON(),
-		);
+		];
 	}
 	
 	public function getChildrenJSON()
