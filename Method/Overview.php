@@ -11,7 +11,7 @@ final class Overview extends Method
     
     public function getPermission() : ?string { return 'staff'; }
 	
-    public function beforeExecute() : void
+    public function onRenderTabs() : void
     {
         $this->renderAdminBar();
         Module_Category::instance()->renderAdminTabs();

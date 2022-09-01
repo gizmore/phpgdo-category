@@ -13,7 +13,7 @@ final class Rebuild extends MethodForm
 {
     use MethodAdmin;
     
-    public function beforeExecute() : void
+    public function onRenderTabs() : void
     {
         $this->renderAdminBar();
         Module_Category::instance()->renderAdminTabs();
