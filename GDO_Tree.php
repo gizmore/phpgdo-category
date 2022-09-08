@@ -153,7 +153,7 @@ abstract class GDO_Tree extends GDO
 	    return $this->full()[1];
 	}
 	
-	public function toJSON()
+	public function toJSON() : array
 	{
 		return [
 			'id' => (int)$this->getID(),
