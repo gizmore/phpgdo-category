@@ -1,4 +1,5 @@
 <?php
+namespace GDO\Category\tpl;
 use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Link;
 
