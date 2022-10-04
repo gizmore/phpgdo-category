@@ -18,12 +18,35 @@ class GDT_Tree extends GDT_Select
 
 	public function renderHTML() : string
 	{
-		return GDT_Template::php('Category', 'cell/tree.php', ['field' => $this]);
+		return GDT_Template::php('Category', 'tree_html.php', [
+			'field' => $this,
+			'roots' => $this->getRoots(),
+		]);
 	}
 	
-	public function render()
+	private function getRoots() : array
 	{
-		return GDT_Template::php('Category', 'form/tree.php', ['field' => $this]);
+		# Build  Tree JSON
+		if ($this->rootId > 0)
+		{
+			return [
+				GDO_Category::findById($this->rootId),
+			];
+		}
+		else
+		{
+			return $this->gdo->fullRoots();
+		}
+	}
+	
+	################
+	### RootNode ###
+	################
+	public int $rootId = 0;
+	public function root(int $rootId) : self
+	{
+		$this->rootId = $rootId;
+		return $this;
 	}
 	
 }

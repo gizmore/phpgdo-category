@@ -4,6 +4,13 @@ namespace GDO\Category;
 use GDO\Core\GDO_Module;
 use GDO\UI\GDT_Page;
 
+/**
+ * Category and Tree functions and utility.
+ * 
+ * @author gizmore
+ * @version 7.0.1
+ * @since 3.0.0
+ */
 final class Module_Category extends GDO_Module
 {
 	public int $priority = 20;
