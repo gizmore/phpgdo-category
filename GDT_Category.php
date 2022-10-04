@@ -27,14 +27,14 @@ final class GDT_Category extends GDT_ObjectSelect
 		return $this->getValue();
 	}
 	
-	public function withCompletion()
+	public function withCompletion() : self
 	{
-	 	$this->completionHref(href('Category', 'Completion'));
+	 	return $this->completionHref(href('Category', 'Completion'));
 	}
 	
 	public function renderHTML() : string
 	{
-		return GDT_Template::php('Category', 'cell/category.php', ['field'=>$this]);
+		return GDT_Template::php('Category', 'category_html.php', ['field'=>$this]);
 	}
 	
 }
