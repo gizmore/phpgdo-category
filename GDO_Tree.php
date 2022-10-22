@@ -50,7 +50,11 @@ abstract class GDO_Tree extends GDO
 	public function getIDColumn() { return $this->gdoPrimaryKeyColumn()->identifier(); }
 	public function getParentColumn() { return $this->gdoTreePrefix().'_parent'; }
 	public function getParentID() { return $this->gdoVar($this->getParentColumn()); }
-	public function getParent() { return $this->gdoValue($this->getParentColumn()); }
+	
+	public function getParent()
+	{
+		return $this->gdoValue($this->getParentColumn());
+	}
 	
 	public function getDepthColumn() { return $this->gdoTreePrefix().'_depth'; }
 	public function getDepth() { return $this->gdoVar($this->getDepthColumn()); }
