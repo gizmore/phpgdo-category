@@ -57,7 +57,7 @@ abstract class GDO_Tree extends GDO
 	}
 	
 	public function getDepthColumn() { return $this->gdoTreePrefix().'_depth'; }
-	public function getDepth() { return $this->gdoVar($this->getDepthColumn()); }
+	public function getDepth(): int { return $this->gdoVar($this->getDepthColumn()); }
 	
 	public function getPathColumn() { return $this->gdoTreePrefix().'_path'; }
 	public function getPath() { return $this->gdoVar($this->getPathColumn()); }
