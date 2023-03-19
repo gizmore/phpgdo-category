@@ -14,7 +14,7 @@ use GDO\Core\GDT_ObjectSelect;
 final class GDT_Category extends GDT_ObjectSelect
 {
 
-	public function defaultLabel(): self
+	public function defaultLabel(): static
 	{
 		return $this->label('category');
 	}
@@ -32,7 +32,7 @@ final class GDT_Category extends GDT_ObjectSelect
 		return $this->getValue();
 	}
 
-	public function withCompletion(): self
+	public function withCompletion(): static
 	{
 		return $this->completionHref(href('Category', 'Completion'));
 	}

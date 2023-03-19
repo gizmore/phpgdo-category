@@ -49,7 +49,7 @@ class GDT_Tree extends GDT_Select
 	### RootNode ###
 	################
 	public int $rootId = 0;
-	public function root(int $rootId) : self
+	public function root(int $rootId): static
 	{
 		$this->rootId = $rootId;
 		return $this;
