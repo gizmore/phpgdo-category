@@ -1,23 +1,18 @@
 <?php
 namespace GDO\Category;
 
-use GDO\Core\GDT_Template;
 use GDO\Core\GDT_ObjectSelect;
+use GDO\Core\GDT_Template;
 
 /**
  * A selection for a Category object.
  *
- * @author gizmore
  * @version 7.0.2
+ * @author gizmore
  * @see GDO_Category
  */
 final class GDT_Category extends GDT_ObjectSelect
 {
-
-	public function defaultLabel(): static
-	{
-		return $this->label('category');
-	}
 
 	protected function __construct()
 	{
@@ -27,21 +22,26 @@ final class GDT_Category extends GDT_ObjectSelect
 		$this->emptyLabel('sel_no_category');
 	}
 
-	public function getCategory(): ?GDO_Category
+	public function defaultLabel(): self
 	{
-		return $this->getValue();
-	}
-
-	public function withCompletion(): static
-	{
-		return $this->completionHref(href('Category', 'Completion'));
+		return $this->label('category');
 	}
 
 	public function renderHTML(): string
 	{
 		return GDT_Template::php('Category', 'category_html.php', [
-			'field' => $this
+			'field' => $this,
 		]);
+	}
+
+	public function getCategory(): ?GDO_Category
+	{
+		return $this->getValue();
+	}
+
+	public function withCompletion(): self
+	{
+		return $this->completionHref(href('Category', 'Completion'));
 	}
 
 }

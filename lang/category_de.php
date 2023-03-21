@@ -1,5 +1,6 @@
 <?php
 namespace GDO\Category\lang;
+
 return [
 	'category' => 'Kategorie',
 	'gdo_category' => 'Kategorie',
