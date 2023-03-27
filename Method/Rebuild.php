@@ -4,6 +4,7 @@ namespace GDO\Category\Method;
 use GDO\Admin\MethodAdmin;
 use GDO\Category\GDO_Category;
 use GDO\Category\Module_Category;
+use GDO\Core\GDT;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -20,7 +21,7 @@ final class Rebuild extends MethodForm
 		Module_Category::instance()->renderAdminTabs();
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		return parent::execute()->addField($this->renderTree());
 	}
@@ -40,7 +41,7 @@ final class Rebuild extends MethodForm
 
 	### Tree
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		GDO_Category::table()->rebuildFullTree();
 		return $this->message('msg_cat_tree_rebuilt');

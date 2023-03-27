@@ -50,9 +50,9 @@ final class Crud extends MethodCrud
 		$this->createFormButtons($form);
 	}
 
-	public function afterCreate(GDT_Form $form, GDO $gdo) { $this->afterChange($gdo); }
+	public function afterCreate(GDT_Form $form, GDO $gdo): void { $this->afterChange($gdo); }
 
-	public function afterUpdate(GDT_Form $form, GDO $gdo) { $this->afterChange($gdo); }
+	public function afterUpdate(GDT_Form $form, GDO $gdo): void { $this->afterChange($gdo); }
 
 	public function afterChange(GDO_Category $category)
 	{

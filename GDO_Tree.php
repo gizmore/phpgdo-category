@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Category;
 
 use GDO\Core\GDO;
@@ -9,11 +10,12 @@ use GDO\Core\GDT_String;
 
 /**
  * Abstract Tree class stolen from sitepoint.
- * To select a partial of the tree look for items that have a LEFT between parent left and right.
+ * To select a partial of the tree, look for child-items that have a LEFT between parent left and right.
  *
  * @see http://articles.sitepoint.com/article/hierarchical-data-database/3
+ *
  * @author gizmore
- * @version 7.0.1
+ * @version 7.0.3
  * @since 6.2.0
  */
 abstract class GDO_Tree extends GDO
@@ -22,9 +24,12 @@ abstract class GDO_Tree extends GDO
 	/**
 	 * @var self[]
 	 */
-	public $children = [];
+	public array $children;
 
-	public function gdoAbstract(): bool { return $this->gdoClassName() === 'GDO\Category\GDO_Tree'; }
+	public function gdoAbstract(): bool
+	{
+		return $this->gdoClassName() === self::class;
+	}
 
 	###########
 	### GDO ###
@@ -34,123 +39,131 @@ abstract class GDO_Tree extends GDO
 	{
 		$pre = $this->gdoTreePrefix();
 		return [
-			GDT_Object::make($pre . '_parent')->table(GDO::tableFor($this->gdoClassName())),
-			GDT_String::make($pre . '_path')->ascii()->caseS()->max(128),
-			GDT_Int::make($pre . '_depth')->unsigned()->bytes(1),
-			GDT_Int::make($pre . '_left')->unsigned(),
-			GDT_Int::make($pre . '_right')->unsigned(),
-			GDT_Index::make($pre . '_left_index')->btree()->indexColumns($pre . '_left'),
-			GDT_Index::make($pre . '_parent_index')->btree()->indexColumns($pre . '_parent'),
+			GDT_Object::make("{$pre}_parent")->table(GDO::tableFor($this->gdoClassName())),
+			GDT_String::make("{$pre}_path")->ascii()->caseS()->max(128),
+			GDT_Int::make("{$pre}_depth")->unsigned()->bytes(1),
+			GDT_Int::make("{$pre}_left")->unsigned(),
+			GDT_Int::make("{$pre}_right")->unsigned(),
+			GDT_Index::make("{$pre}_left_index")->btree()->indexColumns("{$pre}_left"),
+			GDT_Index::make("{$pre}_parent_index")->btree()->indexColumns("{$pre}_parent"),
 		];
 	}
 
-	/**
-	 *
-	 * @return string
-	 */
-	public function gdoTreePrefix() { return 'tree'; }
+	public function gdoTreePrefix(): string
+	{
+		return 'tree';
+	}
 
-	public function getParent()
+	public function getParent(): ?self
 	{
 		return $this->gdoValue($this->getParentColumn());
 	}
 
-	public function getParentColumn() { return $this->gdoTreePrefix() . '_parent'; }
+	public function getParentColumn(): string
+	{
+		return $this->gdoTreePrefix() . '_parent';
+	}
 
-	public function getPath() { return $this->gdoVar($this->getPathColumn()); }	public function getIDColumn() { return $this->gdoPrimaryKeyColumn()->identifier(); }
+	public function getPath(): ?string
+	{
+		return $this->gdoVar($this->getPathColumn());
+	}
 
-	public function getPathColumn() { return $this->gdoTreePrefix() . '_path'; }
+	public function getIDColumn(): string
+	{
+		return $this->gdoPrimaryKeyColumn()->getName();
+	}
+
+	public function getPathColumn(): string
+	{
+		return $this->gdoTreePrefix() . '_path';
+	}
 
 	/**
 	 * @return self[]
 	 */
-	public function getChildren()
+	public function getChildren(): array
 	{
 		if (!$this->children)
 		{
-			$p = $this->getParentColumn();
-			$condition = "{$p}={$this->getID()}";
-			$this->children = self::table()->select()->
-			where($condition)->
-			exec()->fetchAllObjects();
+			$this->children =
+				self::table()->select()->
+				where("{$this->getParentColumn()}={$this->getID()}")->
+				exec()->fetchAllObjects();
 		}
 		return $this->children;
 	}
 
 	/**
 	 * Get sub tree.
-	 *
 	 * @return self[]
 	 */
-	public function getTree()
+	public function getTree(): array
 	{
-		$pre = $this->gdoTreePrefix();
-		$left = $pre . '_left';
-		return $this->select('*')->
-		where($this->getTreeIDWhereClause())->
-		order($left)->exec()->fetchAllObjects();
+		$left = $this->gdoTreePrefix() . '_left';
+		return $this->select()->
+			where($this->getTreeIDWhereClause())->
+			order($left)->exec()->fetchAllObjects();
 	}
 
-	public function getTreeIDWhereClause()
+	public function getTreeIDWhereClause(): string
 	{
-		$left = $this->getLeftColumn();
-		$l = $this->getLeft();
-		$r = $this->getRight();
-		return "$left BETWEEN $l AND $r";
-	}	public function getParentID() { return $this->gdoVar($this->getParentColumn()); }
+		return "{$this->getLeftColumn()} BETWEEN {$this->getLeft()} AND {$this->getRight()}";
+	}
 
-	public function getLeftColumn() { return $this->gdoTreePrefix() . '_left'; }
+	public function getParentID(): ?string
+	{
+		return $this->gdoVar($this->getParentColumn());
+	}
 
-	public function getLeft() { return $this->gdoVar($this->getLeftColumn()); }
+	public function getLeftColumn(): string
+	{
+		return $this->gdoTreePrefix() . '_left';
+	}
 
-	public function getRight() { return $this->gdoVar($this->getRightColumn()); }
+	public function getLeft(): ?string
+	{
+		return $this->gdoVar($this->getLeftColumn());
+	}
 
-	public function getRightColumn() { return $this->gdoTreePrefix() . '_right'; }	public function getDepthColumn() { return $this->gdoTreePrefix() . '_depth'; }
+	public function getRight(): ?string
+	{
+		return $this->gdoVar($this->getRightColumn());
+	}
 
+	public function getRightColumn(): string
+	{
+		return $this->gdoTreePrefix() . '_right';
+	}
 
+	public function getDepthColumn(): string
+	{
+		return $this->gdoTreePrefix() . '_depth';
+	}
 
+	public function getDepth(): ?string
+	{
+		return $this->gdoVar($this->getDepthColumn());
+	}
 
-
-	public function getDepth(): int { return (int)$this->gdoVar($this->getDepthColumn()); }
-
-
-
-
-
-
-
-
-
-
-
-
-
-	################
-	### Get Tree ###
-	################
-
-
-	###############
-	### Connect ###
-	###############
 	/**
 	 * @return self[]
 	 */
 	public function &all(string $order = null, bool $json = false): array
 	{
-		$order = $order ? $order : $this->gdoTableIdentifier() . '.' . $this->getLeftColumn();
+		$order = $order ?: $this->gdoTableIdentifier() . '.' . $this->getLeftColumn();
 		return parent::all($order, $json);
 	}
 
 	/**
 	 * Get all items as all and only roots (those with no parent)
 	 *
-	 * @return self[][]
+	 * @return self[]
 	 */
-	public function full()
+	public function full(): array
 	{
 		$roots = [];
-		$tree = $this->table()->all();
+		$tree = $this->tbl()->all();
 
 		foreach ($tree as $leaf)
 		{
@@ -159,7 +172,6 @@ abstract class GDO_Tree extends GDO
 
 		foreach ($tree as $leaf)
 		{
-			$leaf instanceof GDO_Tree;
 			$pid = $leaf->getParentID();
 			if (isset($tree[$pid]))
 			{
@@ -213,7 +225,7 @@ abstract class GDO_Tree extends GDO
 		$this->rebuildFullTree();
 	}
 
-	public function rebuildFullTree()
+	public function rebuildFullTree(): void
 	{
 		$this->rebuildTree(null, 1, 0);
 
@@ -248,9 +260,9 @@ abstract class GDO_Tree extends GDO
 		return $right + 1;
 	}
 
-	private function rebuildPath(GDO_Tree $leaf, $path = '-')
+	private function rebuildPath(GDO_Tree $leaf, string $path = '-'): static
 	{
-		$path = $path . $leaf->getID() . '-';
+		$path .= $leaf->getID() . '-';
 		$leaf->saveVar($this->getPathColumn(), $path);
 		if ($leaf->children)
 		{
@@ -259,6 +271,7 @@ abstract class GDO_Tree extends GDO
 				$this->rebuildPath($child, $path);
 			}
 		}
+		return $this;
 	}
 
 }

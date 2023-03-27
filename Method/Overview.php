@@ -3,6 +3,7 @@ namespace GDO\Category\Method;
 
 use GDO\Admin\MethodAdmin;
 use GDO\Category\Module_Category;
+use GDO\Core\GDT;
 use GDO\Core\Method;
 
 final class Overview extends Method
@@ -18,7 +19,7 @@ final class Overview extends Method
 		Module_Category::instance()->renderAdminTabs();
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		return $this->templatePHP('overview.php');
 	}
