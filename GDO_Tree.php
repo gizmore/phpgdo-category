@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace GDO\Category;
 
 use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Index;
 use GDO\Core\GDT_Int;
 use GDO\Core\GDT_Object;
@@ -84,12 +85,19 @@ abstract class GDO_Tree extends GDO
 	 */
 	public function getChildren(): array
 	{
-		if (!$this->children)
+		if (!isset($this->children))
 		{
-			$this->children =
-				self::table()->select()->
-				where("{$this->getParentColumn()}={$this->getID()}")->
-				exec()->fetchAllObjects();
+			if ($this->isPersisted())
+			{
+				$this->children =
+					self::table()->select()->
+					where("{$this->getParentColumn()}={$this->getID()}")->
+					exec()->fetchAllObjects();
+			}
+			else
+			{
+				return GDT::EMPTY_ARRAY;
+			}
 		}
 		return $this->children;
 	}
@@ -209,7 +217,7 @@ abstract class GDO_Tree extends GDO
 	public function getChildrenJSON()
 	{
 		$json = [];
-		foreach ($this->children as $child)
+		foreach ($this->getChildren() as $child)
 		{
 			$json[] = $child->toJSON();
 		}
