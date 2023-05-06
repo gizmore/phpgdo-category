@@ -252,7 +252,7 @@ abstract class GDO_Tree extends GDO
 		$idc = $this->getIDColumn();
 
 		$where = $parent ? "$p=$parent" : "$p IS NULL";
-		$result = $this->table()->select($idc, false)->where($where)->exec()->fetchAllValues();
+		$result = $this->table()->select($idc, false)->where($where)->exec()->fetchAllVars();
 		foreach ($result as $id)
 		{
 			$right = $this->rebuildTree($id, $right, $depth + 1);
