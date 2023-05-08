@@ -31,7 +31,7 @@ final class Rebuild extends MethodForm
 		return $this->templatePHP('rebuild.php');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_AntiCSRF::make(),

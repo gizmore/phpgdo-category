@@ -40,7 +40,7 @@ final class Crud extends MethodCrud
 		return href('Category', 'Overview');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$table = $this->gdoTable();
 		$form->addFields(
