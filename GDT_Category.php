@@ -22,9 +22,9 @@ final class GDT_Category extends GDT_ObjectSelect
 		$this->emptyLabel('sel_no_category');
 	}
 
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('category');
+		return 'category';
 	}
 
 	public function renderHTML(): string
